@@ -9,26 +9,35 @@ use function Symfony\Component\String\u;
 
 class PageController extends AbstractController
 {
-    #[Route('/')]
+    #[Route('/', name: 'app_homepage')]
     public function homepage(): Response
     {
-
+        $tracks = [
+            ['song' => 'Cazenove', 'artist' => 'Bicep'],
+            ['song' => 'Big Chill', 'artist' => 'Mujo/Hakone/Max I Million'],
+            ['song' => 'Street Player', 'artist' => 'Chicago'],
+            ['song' => 'Delphium', 'artist' => 'Aphex Twin'],
+            ['song' => 'Give Me Love', 'artist' => 'Cerrone'],
+            ['song' => 'Elle Descend De La Montagne', 'artist' => 'Phenomenal Club'],
+            ['song' => 'Daftendirekt', 'artist' => 'Daft Punk'],
+            ['song' => 'Somebody', 'artist' => 'Cassius'],
+            ['song' => 'The Road Goes On Forever', 'artist' => 'High Contrast'],
+            ['song' => 'Cheeki Breeki', 'artist' => 'Apartje'],
+        ];
 
         return $this->render('Page/homepage.html.twig', [
-            'title' => 'Bienvenue !'
+            'title' => 'Bienvenue sur Cat\'aclysm !',
+            'tracks' => $tracks,
         ]);
     }
 
-    #[Route('/browse/{slug}')]
+    #[Route('/browse/{slug}', name: 'app_browse')]
     public function browse(string $slug = null ): Response
     {
-        if ($slug){
-            $title = u(str_replace('-', ' ', $slug))->title(true);
-        } else {
-            $title = 'Tous les genres';
-        }
+        $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
 
-
-        return new Response('Genre : ' . $title);
+        return $this->render('Page/browse.html.twig', [
+            'genre' => $genre,
+        ]);
     }
 }
