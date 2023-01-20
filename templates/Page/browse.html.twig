@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Recherche | {{ parent() }}{% endblock %}
+
 {% block body %}
 <div class="container">
     <h1>Recherche : {{ genre ? genre : 'Tous les genres' }}</h1>
 
-    <h2 class="mt-5 mb-4">Filter by Genre</h2>
+    <h2 class="mt-5 mb-4">Filtrer par Genre</h2>
     <ul class="genre-list ps-0 mt-2 mb-3">
         <li class="d-inline">
             <a class="btn btn-primary btn-sm" href="{{ path('app_browse', {
@@ -24,7 +26,7 @@
     </ul>
 
     <div>
-        <h2 class="mt-5">Mixes</h2>
+        <h2 class="mt-5">Playlists</h2>
         <div class="row">
             <div class="col col-md-4">
                 <div class="mixed-vinyl-container p-3 text-center">
