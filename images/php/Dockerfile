@@ -3,8 +3,13 @@ RUN apk update
 RUN apk add php81-dev gcc make g++ zlib-dev icu-dev bash git openssl yaml-dev php81-pecl-xdebug
 RUN apk add --update linux-headers
 
+# Postgres
+RUN set -ex \
+  && apk --no-cache add \
+    postgresql-dev
+
 # PHP extensions
-RUN docker-php-ext-install intl pdo pdo_mysql
+RUN docker-php-ext-install intl pdo pdo_pgsql
 
 RUN pecl channel-update pecl.php.net
 
