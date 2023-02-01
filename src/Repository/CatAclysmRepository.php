@@ -40,10 +40,7 @@ class CatAclysmRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @return Playlist[] Returns an array of Playlist objects
-     */
-    public function findAllOrderedByVotes(string $genre = null): array
+    public function createOrderedByVotesQueryBuilder(string $genre = null): QueryBuilder
     {
         $queryBuilder = $this->addOrderByVotesQueryBruilder();
 
@@ -53,9 +50,7 @@ class CatAclysmRepository extends ServiceEntityRepository
                 ->setParameter('genre', $genre);
         }
 
-        return $queryBuilder
-            ->getQuery()
-            ->getResult();
+        return $queryBuilder;
     }
 
     private function addOrderByVotesQueryBruilder(QueryBuilder $queryBuilder = null): QueryBuilder

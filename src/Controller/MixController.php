@@ -16,11 +16,11 @@ class MixController extends AbstractController
     public function new(EntityManagerInterface $entityManager): Response
     {
         $mix = new Playlist();
-        $mix->setTitle('Perso ' . rand(1, 30));
-        $mix->setDescription('Test');
-        $genre = ['Chiptune', 'Funk', 'House', 'Metal', 'Ambiant', 'Breakbeat', 'IDM'];
+        $mix->setTitle('Playlist n°' . rand(1, 30));
+        $mix->setDescription('Ma super playlist de test blablabla');
+        $genre = ['House', 'Metal', 'LoFi', 'Breakbeat', 'Drum&Bass'];
         $mix->setGenre($genre[array_rand($genre)]);
-        $mix->setTrackCount(rand(5, 20));
+        $mix->setTrackCount(rand(5, 50));
         $mix->setVotes(rand(-50, 100));
 
         $entityManager->persist($mix);
@@ -33,7 +33,7 @@ class MixController extends AbstractController
         ));
     }
 
-    #[Route('/mix/{id}', name: 'app_mix_show')]
+    #[Route('/mix/{slug}', name: 'app_mix_show')]
     public function show(Playlist $mix): Response
     {
 //        $mix = $mixRepository->find($id);
@@ -64,7 +64,7 @@ class MixController extends AbstractController
         $this->addFlash('success', 'Vote enregistré !');
 
         return $this->redirectToRoute('app_mix_show', [
-            'id' => $mix->getId(),
+            'slug' => $mix->getSlug(),
         ]);
     }
 }

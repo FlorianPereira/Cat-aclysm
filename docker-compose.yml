@@ -32,6 +32,8 @@ services:
       - '5432:5432'
     networks:
       - mynetwork
+    volumes:
+      - ./data:/var/lib/postgresql/
   pgadmin:
       image: dpage/pgadmin4
       environment:
@@ -42,10 +44,6 @@ services:
         - '15432:80'
       networks:
         - mynetwork
-#      volumes:
-#        - pgadmin:/var/lib/pgadmin
-#      networks:
-#        - postgres
 
 #    volumes:
 #      - db-data:/var/lib/postgresql/data:rw
